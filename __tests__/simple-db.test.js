@@ -22,4 +22,14 @@ describe('simple database', () => {
     const result = await db.getFileById(id);
     expect(result).toEqual(test);
   });
+
+  it('saves a file', async () => {
+    const test = {
+      name: 'Test'
+    };
+    const db = new SimpleDb(TEST_DIR);
+    await db.save(test);
+    const result = await db.getFileById(test.id);
+    expect(result).toEqual(test);
+  });
 });
