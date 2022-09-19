@@ -12,6 +12,32 @@ describe('simple database', () => {
     await fs.mkdir(TEST_DIR, { recursive: true });
   });
 
+  it('gets all files', async () => {
+    const testObj = [
+      {
+        name: 'Test1'
+      },
+      {
+        name: 'Test2'
+      },
+    ];
+    const db = new SimpleDb(TEST_DIR);
+    testObj.forEach(async testObj => {
+      await db.save(testObj);
+    });
+    const result = await db.getAllFiles();
+    expect(result).toEqual([
+      {
+        name: expect.any(String),
+        id: expect.any(String)
+      },
+      {
+        name: expect.any(String),
+        id: expect.any(String)
+      }
+    ]);
+  });
+
   it('gets file by id', async () => {
     const test = {
       name: 'Test'
