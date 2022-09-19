@@ -12,5 +12,14 @@ describe('simple database', () => {
     await fs.mkdir(TEST_DIR, { recursive: true });
   });
 
-  it('needs a first test...', async () => {});
+  it('gets file by id', async () => {
+    const test = {
+      name: 'Test'
+    };
+    const id = crypto.randomBytes(8).toString('hex');
+    await fs.writeFile(`${TEST_DIR}/${id}.json`, JSON.stringify(test));
+    const db = new SimpleDb(TEST_DIR);
+    const result = await db.getFileById(id);
+    expect(result).toEqual(test);
+  });
 });
